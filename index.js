@@ -35,9 +35,9 @@ const electricidad= [
 
 const agua= [
     "Sabías que el 70 por ciento de nuestro planeta es agua, y tan solo el 0.002 por ciento es potable, esa es una de las grandes razones por las cuales hay que cuidar el agua. ¿Te gustaría saber más sobre esto? Solo di, quiero saber la importancia del agua",
-    "Solo el 33 por ciento de la población mundial tiene acceso al servicio de agua potable. ¿Quieres seguir conociendo datos interesantes? Solo tienes que decir, hablame sobre el agua",
+    "Solo el 33 por ciento de la población mundial tiene acceso al servicio de agua potable. ¿Quieres seguir conociendo datos interesantes? Solo tienes que decir, hablame sobre el agua. También puedes preguntarme: cuánta agua gasta una lavadora, una lavavajillas, u otra cosa mas",
     "Sabías que se calcula que 3,4 millones de personas mueren al año por enfermedades relacionadas con el agua. ¿Te gustaría saber más sobre esto? Solo di, quiero saber la importancia del agua",
-    "Se calcula que cada estadounidense consume 575 litros de agua por habitante al día. ¿Quieres seguir conociendo datos interesantes? Solo tienes que decir, hablame sobre el agua",
+    "Se calcula que cada estadounidense consume 575 litros de agua por habitante al día. ¿Quieres seguir conociendo datos interesantes? Solo tienes que decir, hablame sobre el agua. También puedes preguntarme: cuánta agua gasta una lavadora, una lavavajillas, u otra cosa mas",
     "La ONU estima que el 70% de la huella hídrica a nivel mundial está vinculada a la producción de alimentos. ¿Te gustaría saber más sobre esto? Solo di, quiero saber la importancia del agua",
     ];
 
@@ -96,7 +96,7 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = Saludos[Math.floor(Math.random()*Saludos.length)] + ' Me da mucho gusto verte por acá. Nuestro planeta ocupa de tu ayuda para seguir con vida. ¿Quieres saber cómo? Solo menciona deforestación, electricidad, o agua, para conocer impactantes datos sobre estos temas y cómo puedes preservarlos';
+        const speakOutput = Saludos[Math.floor(Math.random()*Saludos.length)] + ' Me da mucho gusto verte por acá. Nuestro planeta ocupa de tu ayuda para seguir con vida. ¿Quieres saber cómo? Solo menciona deforestación, electricidad, o agua, para conocer impactantes datos sobre estos temas. También me puedes pedir propuestas para ahorrar recursos diciendo: ¿Cómo puedo ahorrar agua, electricidad, o cómo reforestar?';
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .reprompt(speakOutput)
@@ -144,12 +144,12 @@ const AhorroDeRecursosHandler = {
     handle(handlerInput) {
         var speechOutput='';
         const request = handlerInput.requestEnvelope.request;
-        var MenosRecursos = request.intent.slots.general.value;
+        var MenosRecursos = request.intent.slots.GeneralAhorro.value;
     switch(MenosRecursos){
         case "deforestar":
              speechOutput = reforestacion[Math.floor(Math.random()*reforestacion.length)];
             break;
-        case "reforestación":
+        case "reforestar":
              speechOutput = reforestacion[Math.floor(Math.random()*reforestacion.length)];
             break;
         case "agua":
@@ -165,8 +165,8 @@ const AhorroDeRecursosHandler = {
         
 
         return handlerInput.responseBuilder
-            .speak(`${speechOutput} 'Para saber otro dato curioso puedes decir, dime otro dato`)
-            .reprompt('Si quieres saber algún dato interesante puedes decir dime otro dato')
+            .speak(`${speechOutput} ¿Quieres conocer más propuestas al respecto? Solamente tienes que decir, ¿cómo puedo ayudar con el agua, electricidad, o reforestar?`)
+            .reprompt()
             .getResponse();
     }
 };
@@ -377,7 +377,7 @@ const FinalizarElectricidadHandler = {
         if(celular===true){
             wattsgastados = wattsgastados + 360
         }
-        const speakOutput = 'Excelente, la encuesta ha sido finalizada, resulta que gastas aproximadamente ' + wattsgastados + ' watts diarios, recuerda que puedes pedirme datos impactantes sobre la electricidad, el agua y la deforestación';
+        const speakOutput = 'Excelente, la encuesta ha sido finalizada, resulta que gastas aproximadamente ' + wattsgastados + ' watts diarios, recuerda que puedes pedirme datos impactantes sobre la electricidad, el agua y la deforestación. Si no sabes a cuánto equivle un vatio pregúntame: ¿a cuánto equivale un vatio?';
         GastoEnergia = false;
         refrigerador = false;
         microondas = false;
